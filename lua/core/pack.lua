@@ -31,7 +31,7 @@ vim.pack.add({
   "https://github.com/nvim-mini/mini.starter",
   "https://github.com/Bekaboo/dropbar.nvim",
   "https://github.com/lukas-reineke/indent-blankline.nvim.git",
-  "https://github.com/olimorris/onedarkpro.nvim",
   "https://github.com/romgrk/barbar.nvim",
   "https://github.com/nvim-tree/nvim-web-devicons",
+  "https://github.com/rebelot/kanagawa.nvim",
 })

@@ -10,6 +10,12 @@ git clone https://github.com/Perfeitor/nvim-config.git ~/.config/nvim
 
 > Mặc định bạn chỉ có `main` (cấu hình chung + Lua). Muốn thêm ngôn ngữ, xem phần "Tạo môi trường đa ngôn ngữ".
 
+## Xoá các plusins không sử dụng, nhập lệnh trong vim
+
+```
+lua vim.pack.del(vim.tbl_map(function(p) return p.spec.name end, vim.tbl_filter(function(p) return not p.active end, vim.pack.get())))
+```
+
 ## Mô hình nhánh
 
 ```
