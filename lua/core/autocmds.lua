@@ -1,26 +1,10 @@
 -- =============================================
 --  AUTOCMD DÙNG CHUNG
 --  (Autocmd riêng của từng ngôn ngữ nằm trong
---   lua/langs/<tên>/autocmds.lua)
+--   lua/langs/<tên>/autocmds.lua;
+--   autocmd gắn với 1 plugin cụ thể nằm trong
+--   lua/plugins/<plugin>.lua)
 -- =============================================
-
--- Đóng Trouble khi thoát Nvim (tránh lỗi tiến trình còn chạy)
-vim.api.nvim_create_autocmd("VimLeavePre", {
-  callback = function()
-    pcall(require("trouble").close)
-  end,
-})
-
--- MiniStarter: sau khi mở, tự nhảy xuống mục đầu tiên
-vim.api.nvim_create_autocmd("User", {
-  pattern = "MiniStarterOpened",
-  callback = function()
-    vim.schedule(function()
-      local starter = require("mini.starter")
-      starter.update_current_item("next")
-    end)
-  end,
-})
 
 -- Cập nhật tiêu đề cửa sổ theo tên thư mục gốc
 vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
