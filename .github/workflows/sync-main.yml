@@ -13,23 +13,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Configure Git signing
+      - name: Configure Git
         env:
-          SIGNING_KEY: ${{ secrets.GIT_SIGNING_KEY }}
+          GIT_SIGNING_KEY: ${{ secrets.GIT_SIGNING_KEY }}
+          GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
+          GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
         run: |
-          mkdir -p ~/.ssh
-          printf '%s\n' "$SIGNING_KEY" > ~/.ssh/github_actions_signing
-          chmod 600 ~/.ssh/github_actions_signing
+          printf '%s\n' "$GIT_SIGNING_KEY" > "$RUNNER_TEMP/signing_key"
+          chmod 600 "$RUNNER_TEMP/signing_key"
 
-          git config user.name "Perfeitor"
-          git config user.email "EMAIL_GITHUB_CUA_ONG"
+          git config user.name "$GIT_USER_NAME"
+          git config user.email "$GIT_USER_EMAIL"
           git config gpg.format ssh
-          git config user.signingkey ~/.ssh/github_actions_signing.pub
+          git config user.signingkey "$RUNNER_TEMP/signing_key"
 
       - name: Sync main to language branches
         run: |
@@ -39,14 +40,13 @@ jobs:
             branch=${branch#origin/}
 
             echo "Syncing main -> $branch"
-
             git checkout "$branch"
 
-            if git merge origin/main --no-edit -S; then
+            if git merge origin/main --no-edit --no-ff -S; then
               git push origin "$branch"
               echo "✓ $branch synced"
             else
               echo "✗ Conflict in $branch"
-              git merge --abort
+              git merge --abort || true
             fi
           done
