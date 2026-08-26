@@ -1,14 +1,27 @@
 -- =============================================
---  LOADER PLUGIN
---  Tự quét và nạp mọi file .lua trong lua/plugins/
---  (trừ chính file init.lua). Thêm plugin config =
---  thêm 1 file, không cần sửa danh sách -> không conflict khi merge.
+--  LOADER PLUGIN DÙNG CHUNG
+--  Nạp các plugin dùng chung theo THỨ TỰ tường minh
+--  (một số plugin phụ thuộc thứ tự, vd: mason phải setup
+--   trước mason-lspconfig).
+--
+--  Plugin riêng của từng ngôn ngữ KHÔNG nằm ở đây:
+--  chúng sống trong lua/langs/<tên>/ và được nạp qua core/langs.
+--  Vì vậy file này chỉ bị sửa trên main, không bao giờ bị các
+--  nhánh ngôn ngữ đụng tới -> merge vẫn không conflict.
 -- =============================================
-local dir = vim.fn.stdpath("config") .. "/lua/plugins"
-
-for _, file in ipairs(vim.fn.glob(dir .. "/*.lua", false, true)) do
-  local name = vim.fn.fnamemodify(file, ":t:r")
-  if name ~= "init" then
-    require("plugins." .. name)
-  end
-end
+require("plugins.mason")
+require("plugins.telescope")
+require("plugins.neotree")
+require("plugins.mason-lspconfig")
+require("plugins.gitsigns")
+require("plugins.blink")
+require("plugins.autopairs")
+require("plugins.rainbow-delimiters")
+require("plugins.scrollview")
+require("plugins.trouble")
+require("plugins.lensline")
+require("plugins.lualine")
+require("plugins.quicker")
+require("plugins.mini")
+require("plugins.dropbar")
+require("plugins.indent-blankline")
