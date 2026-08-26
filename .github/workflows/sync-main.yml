@@ -1,0 +1,44 @@
+name: Sync main to language branches
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "${{ secrets.GIT_USER_NAME }}"
+          git config user.email "${{ secrets.GIT_USER_EMAIL }}"
+
+      - name: Sync main to language branches
+        run: |
+          git fetch origin
+
+          for branch in $(git branch -r --format='%(refname:short)' | grep '^origin/lang/'); do
+            branch=${branch#origin/}
+
+            echo "Syncing main -> $branch"
+
+            git checkout "$branch"
+
+            if git merge origin/main --no-edit; then
+              git push origin "$branch"
+              echo "✓ $branch synced"
+            else
+              echo "✗ Conflict in $branch"
+              git merge --abort
+            fi
+          done
