@@ -156,4 +156,4 @@ Vì các nhánh ngôn ngữ chỉ thêm file riêng, việc merge thay đổi ch
 - 🧠 LSP của từng ngôn ngữ được khai báo trong `lua/langs/<tên>/lsp.lua` qua `vim.lsp.enable()`.
 - 🛠️ Nếu server chưa được cài, chạy `:MasonInstall <tên-server>` một lần.
 - 🧩 Autocmd phụ thuộc plugin nên đặt trong config của chính plugin đó để tránh cảnh báo `same file required with different names` từ `lua-language-server`.
-```
+- 🛠️ Được build dựa trên **Neovim v0.12.5**
