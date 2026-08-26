@@ -1,60 +1,99 @@
-# Nvim Config — Git hóa theo ngôn ngữ
+# 🧩 Nvim Config — Git hóa theo ngôn ngữ
 
-Cấu hình Neovim được tổ chức theo **git branches**: mỗi ngôn ngữ là 1 nhánh riêng, cài đặt chung nằm trên `main`. Muốn làm việc với nhiều ngôn ngữ thì chỉ cần **merge n nhánh vào nhau** — không bao giờ conflict.
+Cấu hình Neovim được tổ chức theo **Git branches**: mỗi ngôn ngữ là 1 nhánh riêng, cài đặt chung nằm trên `main`. Muốn làm việc với nhiều ngôn ngữ thì chỉ cần **merge n nhánh vào nhau** — không đụng file dùng chung, nên tránh được conflict.
 
-## Cài nhanh (clone về)
+## 📚 Mục lục
+
+- [Cài đặt](#-cài-nhanh)
+- [Mô hình nhánh](#-mô-hình-nhánh)
+- [Cấu trúc thư mục](#-cấu-trúc-thư-mục)
+- [Tạo môi trường đa ngôn ngữ](#-tạo-môi-trường-đa-ngôn-ngữ)
+- [Tạo nhánh ngôn ngữ mới](#-tạo-nhánh-ngôn-ngữ-mới)
+- [Cập nhật](#-cập-nhật-khi-main-có-thay-đổi)
+- [Lưu ý](#-lưu-ý)
+
+## 🚀 Cài nhanh
 
 ```bash
 git clone https://github.com/Perfeitor/nvim-config.git ~/.config/nvim
 ```
 
-> Mặc định bạn chỉ có `main` (cấu hình chung + Lua). Muốn thêm ngôn ngữ, xem phần "Tạo môi trường đa ngôn ngữ".
+> Mặc định chỉ có `main` (cấu hình chung + Lua). Muốn thêm ngôn ngữ, xem phần **🌐 Tạo môi trường đa ngôn ngữ**.
 
-## Xoá các plusins không sử dụng, nhập lệnh trong vim
+## 🧹 Xoá plugin không sử dụng
 
-```
-lua vim.pack.del(vim.tbl_map(function(p) return p.spec.name end, vim.tbl_filter(function(p) return not p.active end, vim.pack.get())))
-```
+Chạy trong Neovim:
 
-## Mô hình nhánh
-
-```
-main             → cài đặt CHUNG + Lua (ngôn ngữ mặc định)
-lang/csharp      → toàn bộ phần C# (LSP, highlight, autocmd, keymap)
-lang/python      → toàn bộ phần Python (nếu có)
-lang/go          → toàn bộ phần Go (nếu có)
+```vim
+:lua vim.pack.del(vim.tbl_map(function(p) return p.spec.name end, vim.tbl_filter(function(p) return not p.active end, vim.pack.get())))
 ```
 
-- **Chỉ có `main` là bắt buộc.** Các nhánh `lang/*` là tùy chọn, mỗi nhánh chỉ **thêm file mới** vào `lua/langs/<ngôn ngữ>/`.
-- Merge n nhánh = ghép n thư mục ngôn ngữ lại, **không đụng file dùng chung** → không bao giờ conflict.
+## 🌿 Mô hình nhánh
 
-## Cấu trúc thư mục
-
+```text
+main             → ⚙️ Cài đặt chung + Lua
+lang/csharp      → 🟣 Toàn bộ phần C#
+lang/python      → 🐍 Toàn bộ phần Python
+lang/go          → 🐹 Toàn bộ phần Go
 ```
+
+- **`main` là nhánh bắt buộc.**
+- Các `lang/*` là tùy chọn.
+- Mỗi nhánh ngôn ngữ chỉ **thêm file mới** vào `lua/langs/<ngôn ngữ>/`.
+- Merge nhiều nhánh = ghép nhiều ngôn ngữ, **không sửa file dùng chung** → gần như không có conflict.
+
+### 🧭 Cách hoạt động
+
+```text
+                    ┌─────────────┐
+                    │    main     │
+                    │   ⚙️ Core   │
+                    └──────┬──────┘
+                           │
+          ┌────────────────┼────────────────┐
+          ▼                ▼                ▼
+     lang/csharp       lang/python       lang/go
+         🟣                 🐍               🐹
+          │                │                │
+          └────────────────┼────────────────┘
+                           ▼
+                    ┌─────────────┐
+                    │   my-env    │
+                    │  🧩 Merge   │
+                    └─────────────┘
+```
+
+## 📁 Cấu trúc thư mục
+
+```text
 ~/.config/nvim/
-├── init.lua                    → require("core") + require("plugins")
+├── init.lua                    → 🚪 Entry point
 └── lua/
-    ├── core/                   ← cài đặt chung
-    │   ├── init.lua            → thứ tự nạp: pack → keymaps → options → autocmds → langs
-    │   ├── langs.lua           → LOADER: tự quét mọi thư mục trong lua/langs/
-    │   ├── pack.lua            → plugin dùng chung
-    │   ├── keymaps.lua         → phím tắt dùng chung
-    │   ├── options.lua         → option dùng chung
-    │   └── autocmds.lua        → autocmd dùng chung
-    ├── langs/                  ← 1 thư mục = 1 ngôn ngữ
-    │   ├── lua/                → (trên main) ngôn ngữ mặc định
-    │   └── csharp/             → (trên nhánh lang/csharp)
-    │       ├── init.lua        → require các file con
-    │       ├── lsp.lua         → vim.lsp.config + vim.lsp.enable
-    │       ├── options.lua     → indent, highlight riêng
-    │       ├── autocmds.lua    → autocmd riêng (semantic token...)
-    │       └── keymaps.lua     → phím tắt buffer-local cho ngôn ngữ đó
-    └── plugins/                ← config plugin dùng chung (chỉ sửa trên main)
+    ├── core/                   ← ⚙️ Cài đặt chung
+    │   ├── init.lua            → thứ tự nạp
+    │   ├── langs.lua           → 🔍 Language loader
+    │   ├── pack.lua            → 📦 Plugin dùng chung
+    │   ├── keymaps.lua         → ⌨️ Phím tắt dùng chung
+    │   ├── options.lua         → ⚙️ Option dùng chung
+    │   └── autocmds.lua        → 🔄 Autocmd dùng chung
+    │
+    ├── langs/                  ← 🌐 Cấu hình theo ngôn ngữ
+    │   ├── lua/                → 🌙 Lua mặc định
+    │   └── csharp/             → 🟣 C#
+    │       ├── init.lua        → điểm vào
+    │       ├── lsp.lua         → 🧠 LSP
+    │       ├── options.lua     → ⚙️ Option riêng
+    │       ├── autocmds.lua    → 🔄 Autocmd riêng
+    │       └── keymaps.lua     → ⌨️ Keymap riêng
+    │
+    └── plugins/                ← 🧩 Config plugin dùng chung
 ```
 
-Cơ chế **loader** (`core/langs.lua`) tự quét `lua/langs/*/`, nên thêm ngôn ngữ mới **chỉ cần thêm 1 thư mục** — không phải sửa file nào dùng chung. Đó là lý do merge không conflict.
+Cơ chế **loader** (`core/langs.lua`) tự quét `lua/langs/*/`, nên thêm ngôn ngữ mới **chỉ cần thêm một thư mục** — không phải sửa code dùng chung.
 
-## Tạo môi trường đa ngôn ngữ
+Đó là lý do các nhánh `lang/*` có thể merge với nhau mà không tạo conflict.
+
+## 🌐 Tạo môi trường đa ngôn ngữ
 
 ```bash
 cd ~/.config/nvim
@@ -63,27 +102,37 @@ cd ~/.config/nvim
 git checkout main
 git checkout -b my-env
 
-# Merge các ngôn ngữ bạn cần (merge nhiều nhánh 1 lúc)
+# Merge các ngôn ngữ cần dùng
 git merge lang/csharp lang/python lang/go
 ```
 
-Lúc này config có đủ mọi thứ. Muốn bỏ bớt ngôn ngữ thì đổi nhánh khác, hoặc `git merge` lại với nhánh mong muốn.
+Lúc này `my-env` có đầy đủ C#, Python và Go.
 
-## Tạo nhánh ngôn ngữ mới (ví dụ: Go)
+Muốn sử dụng một tổ hợp ngôn ngữ khác, chỉ cần tạo một nhánh môi trường khác và merge các nhánh tương ứng.
+
+## ➕ Tạo nhánh ngôn ngữ mới
+
+Ví dụ với Go:
 
 ```bash
 git checkout main
 git checkout -b lang/go
 
 mkdir -p lua/langs/go
-# ... tạo lua/langs/go/{init,lsp,options,autocmds,keymaps}.lua ...
+
+# Tạo:
+# lua/langs/go/init.lua
+# lua/langs/go/lsp.lua
+# lua/langs/go/options.lua
+# lua/langs/go/autocmds.lua
+# lua/langs/go/keymaps.lua
 
 git add lua/langs/go
 git commit -m "lang/go: thêm hỗ trợ Go"
 git push -u origin lang/go
 ```
 
-`lua/langs/go/init.lua` là điểm vào, ví dụ:
+### `lua/langs/go/init.lua`
 
 ```lua
 require("langs.go.lsp")
@@ -92,15 +141,19 @@ require("langs.go.autocmds")
 require("langs.go.keymaps")
 ```
 
-## Cập nhật khi `main` có thay đổi chung
+## 🔄 Cập nhật khi `main` có thay đổi
 
 ```bash
 git checkout my-env
-git merge main        # luôn sạch, các nhánh ngôn ngữ chỉ thêm file
+git merge main
 ```
 
-## Lưu ý
+Vì các nhánh ngôn ngữ chỉ thêm file riêng, việc merge thay đổi chung từ `main` vẫn sạch.
 
-- `pack/` và `nvim-pack-lock.json` nằm trong `.gitignore`: plugin được cài tự động theo đúng branch đang đứng, không cần track.
-- Server LSP của từng ngôn ngữ được khai báo trong `lua/langs/<tên>/lsp.lua` qua `vim.lsp.enable()`. Nếu chưa tự cài, chạy `:MasonInstall <tên server>` một lần (ví dụ `:MasonInstall gopls`).
-- Các autocmd gắn với một plugin cụ thể nên đặt ngay trong file config của plugin đó (tránh cảnh báo "same file required with different names" của lua-language-server).
+## 📝 Lưu ý
+
+- 📦 `pack/` và `nvim-pack-lock.json` nằm trong `.gitignore`: plugin được cài tự động theo branch hiện tại.
+- 🧠 LSP của từng ngôn ngữ được khai báo trong `lua/langs/<tên>/lsp.lua` qua `vim.lsp.enable()`.
+- 🛠️ Nếu server chưa được cài, chạy `:MasonInstall <tên-server>` một lần.
+- 🧩 Autocmd phụ thuộc plugin nên đặt trong config của chính plugin đó để tránh cảnh báo `same file required with different names` từ `lua-language-server`.
+```
