@@ -1,0 +1,11 @@
+-- =============================================
+--  LUA: Phím tắt riêng
+--  Hiện chưa có; thêm vào đây theo mẫu khi cần.
+-- =============================================
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = { "lua" },
+--   callback = function()
+--     vim.keymap.set("n", "<leader>R", "<cmd>source %<cr>",
+--       { buffer = true, desc = "Lua: Chạy file hiện tại" })
+--   end,
+-- })
