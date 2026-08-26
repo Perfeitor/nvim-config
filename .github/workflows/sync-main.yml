@@ -28,10 +28,8 @@ jobs:
 
           git config user.name "Perfeitor"
           git config user.email "EMAIL_GITHUB_CUA_ONG"
-
           git config gpg.format ssh
-          git config user.signingkey ~/.ssh/github_actions_signing
-          git config commit.gpgsign true
+          git config user.signingkey ~/.ssh/github_actions_signing.pub
 
       - name: Sync main to language branches
         run: |
@@ -44,7 +42,7 @@ jobs:
 
             git checkout "$branch"
 
-            if git merge origin/main --no-edit; then
+            if git merge origin/main --no-edit -S; then
               git push origin "$branch"
               echo "✓ $branch synced"
             else
