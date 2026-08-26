@@ -9,7 +9,8 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "yes:1"
+vim.opt.numberwidth = 4
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 500
 vim.opt.splitright = true
@@ -118,4 +119,4 @@ vim.opt.fillchars = {
 --  (Highlight màu riêng của C# đã chuyển sang
 --   lua/langs/csharp/options.lua)
 -- =============================================
-vim.cmd("colorscheme onedark")
+vim.cmd("colorscheme kanagawa-wave")
