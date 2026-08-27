@@ -33,4 +33,5 @@ vim.pack.add({
   "https://github.com/lukas-reineke/indent-blankline.nvim.git",
   "https://github.com/rebelot/kanagawa.nvim",
   "https://github.com/nanozuki/tabby.nvim",
+  "https://github.com/rachartier/tiny-code-action.nvim"
 })

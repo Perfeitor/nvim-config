@@ -6,16 +6,36 @@ vim.g.mapleader = " "
 map("n", "gd", vim.lsp.buf.definition, { desc = "LSP: Go to definition" })
 map("n", "gr", vim.lsp.buf.references, { desc = "LSP: References" })
 map("n", "gi", vim.lsp.buf.implementation, { desc = "LSP: Go to implementation" })
-map("n", "K", vim.lsp.buf.hover, { desc = "LSP: Hover" })
+map("n", "K", function()
+  vim.lsp.buf.hover({
+    border = "rounded",
+    max_width = 100,
+    max_height = 30,
+  })
+end, { desc = "LSP: Hover" })
 map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP: Rename" })
-map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
+map({ "n", "x" }, "<leader>ca", function()
+  require("tiny-code-action").code_action()
+end, {
+  desc = "Code Action",
+})
 
 map("i", "<C-Space>", "<C-X><C-O>")
-map({ "n", "i" }, "<C-s>", "<cmd>write<cr>", { desc = "Save" })
 map("n", "<C-a>", "ggVG", { desc = "Select all" })
 map("n", "<leader>e", "<CMD>Neotree toggle reveal<CR>", { desc = "Toggle NeoTree" })
 map("i", "<C-S-v>", "<C-r>+", { desc = "Paste clipboard" })
 map("n", "<C-S-v>", '"+p', { desc = "Paste clipboard" })
+map({ "n", "i" }, "<C-s>", function()
+  vim.cmd("stopinsert")
+  vim.cmd("write")
+  vim.defer_fn(function()
+    vim.diagnostic.open_float(nil, {
+      focus = false,
+      scope = "line",
+      border = "rounded"
+    })
+  end, 100)
+end, { desc = "Save & Validate" })
 
 map('n', '<leader>ff', telescope.find_files, { desc = 'Telescope find files' })
 map('n', '<leader>fg', telescope.live_grep, { desc = 'Telescope live grep' })
