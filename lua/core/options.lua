@@ -86,10 +86,10 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
     },
     text = {
-      [vim.diagnostic.severity.ERROR] = "",
-      [vim.diagnostic.severity.HINT] = "",
-      [vim.diagnostic.severity.INFO] = "",
-      [vim.diagnostic.severity.WARN] = "",
+      [vim.diagnostic.severity.ERROR] = "󰅙",
+      [vim.diagnostic.severity.HINT] = "󰌵",
+      [vim.diagnostic.severity.INFO] = "󰋼",
+      [vim.diagnostic.severity.WARN] = "󰀦",
     },
   },
   update_in_insert = true,
@@ -120,3 +120,26 @@ vim.opt.fillchars = {
 --   lua/langs/csharp/options.lua)
 -- =============================================
 vim.cmd("colorscheme kanagawa-wave")
+
+-- =============================================
+--  MÀU DIAGNOSTIC RÕ RÀNG (bảng màu One Dark, dịu mắt)
+--  Áp dụng sau colorscheme để ghi đè theme.
+--  Đồng bộ: icon (Sign), text gốc (VirtualText link theo),
+--  bong bóng float, header float, màu undercurl.
+-- =============================================
+local diag_colors = {
+  Error = "#E06C75", -- đỏ hồng nhẹ (dịu hơn #E82424)
+  Warn  = "#E5C07B", -- vàng hổ phách
+  Info  = "#61AFEF", -- xanh dương
+  Hint  = "#98C379", -- xanh lá
+}
+for sev, fg in pairs(diag_colors) do
+  vim.api.nvim_set_hl(0, "Diagnostic" .. sev, { fg = fg })
+  vim.api.nvim_set_hl(0, "DiagnosticSign" .. sev, { fg = fg, bg = "none" })
+  vim.api.nvim_set_hl(0, "DiagnosticFloating" .. sev, { fg = fg })
+  vim.api.nvim_set_hl(0, "DiagnosticFloatingHeader" .. sev, { fg = fg })
+  local u = vim.api.nvim_get_hl(0, { name = "DiagnosticUnderline" .. sev, link = false })
+  u.sp = fg
+  vim.api.nvim_set_hl(0, "DiagnosticUnderline" .. sev, u)
+end
+
