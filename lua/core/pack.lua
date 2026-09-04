@@ -2,7 +2,7 @@ vim.pack.add({
   "https://github.com/nvim-treesitter/nvim-treesitter.git",
   "https://github.com/nvim-telescope/telescope.nvim.git",
   "https://github.com/mason-org/mason.nvim",
-  "https://github.com/neovim/nvim-lspconfig"
+  "https://github.com/neovim/nvim-lspconfig",
 
   -- Neotree and Dependencies
   {
