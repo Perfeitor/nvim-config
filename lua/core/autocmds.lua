@@ -13,3 +13,9 @@ vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
     vim.opt.titlestring = "Nvim: " .. vim.fn.fnamemodify(root, ":t")
   end,
 })
+
+-- Autoreload file when changed outside of nvim
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
+  pattern = "*",
+  command = "checktime",
+})

@@ -21,6 +21,7 @@ vim.opt.confirm = true
 vim.opt.list = true
 vim.opt.termguicolors = true
 vim.opt.title = true
+vim.opt.autoread = true
 
 -- =============================================
 --  BẢNG INDENT DỰ PHÒNG
