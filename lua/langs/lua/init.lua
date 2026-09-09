@@ -3,6 +3,7 @@
 --  Mỗi ngôn ngữ = 1 thư mục; init.lua chỉ require các file con
 --  theo thứ tự: lsp -> options -> keymaps -> autocmds
 -- =============================================
+require("langs.lua.treesitter")
 require("langs.lua.lsp")
 require("langs.lua.options")
 require("langs.lua.keymaps")
