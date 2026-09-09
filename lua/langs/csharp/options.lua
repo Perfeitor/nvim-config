@@ -19,10 +19,9 @@ vim.api.nvim_create_autocmd("FileType", {
 -- class / method / member thay vì màu mặc định.
 vim.api.nvim_set_hl(0, "@lsp.type.field.cs",          { fg = "#7AA89F" })
 vim.api.nvim_set_hl(0, "@csharp.variable",            { fg = "#C0A36E" })
-vim.api.nvim_set_hl(0, "@csharp.member",              { fg = "#98BB6C" })
+vim.api.nvim_set_hl(0, "@csharp.member",              { fg = "#c4c4c4" })
 vim.api.nvim_set_hl(0, "@csharp.method",              { fg = "#7E9CD8" })
 vim.api.nvim_set_hl(0, "@csharp.class",               { fg = "#E6C384" })
-vim.api.nvim_set_hl(0, "@lsp.type.controlKeyword.cs", { fg = "#D27E99" })
+vim.api.nvim_set_hl(0, "@lsp.type.controlKeyword.cs", { fg = "#FFFFFF" })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.cs",        { fg = "#957FB8" })
-vim.api.nvim_set_hl(0, "@lsp.type.controlKeyword.cs", { fg = "#c688c0" })
 vim.api.nvim_set_hl(0, "@lsp.type.keyword.cs", { fg = "#5b9bd5" })
