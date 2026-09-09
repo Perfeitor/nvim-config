@@ -70,6 +70,7 @@ map('n', '<leader>ff', telescope.find_files, { desc = 'Telescope find files' })
 map('n', '<leader>fg', telescope.live_grep, { desc = 'Telescope live grep' })
 map('n', '<leader>fb', telescope.buffers, { desc = 'Telescope buffers' })
 map('n', '<leader>fh', telescope.help_tags, { desc = 'Telescope help tags' })
+map('n', '<leader>fr', telescope.resume, { desc = 'Telescope resume'})
 
 map("i", "<C-h>", vim.lsp.buf.signature_help, { desc = "Signature Help" })
 
