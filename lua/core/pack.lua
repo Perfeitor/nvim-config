@@ -33,6 +33,8 @@ vim.pack.add({
   "https://github.com/Bekaboo/dropbar.nvim",
   "https://github.com/lukas-reineke/indent-blankline.nvim.git",
   "https://github.com/rebelot/kanagawa.nvim",
+  "https://github.com/folke/tokyonight.nvim",
+  "https://github.com/catppuccin/nvim",
   "https://github.com/nanozuki/tabby.nvim",
   "https://github.com/rachartier/tiny-code-action.nvim"
 })
