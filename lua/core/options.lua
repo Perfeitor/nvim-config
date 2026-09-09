@@ -120,7 +120,7 @@ vim.opt.fillchars = {
 --  (Highlight màu riêng của C# đã chuyển sang
 --   lua/langs/csharp/options.lua)
 -- =============================================
-vim.cmd("colorscheme kanagawa-wave")
+vim.cmd("colorscheme catppuccin-macchiato")
 
 -- =============================================
 --  MÀU DIAGNOSTIC RÕ RÀNG (bảng màu One Dark, dịu mắt)
