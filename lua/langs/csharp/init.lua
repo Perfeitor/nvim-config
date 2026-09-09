@@ -3,6 +3,7 @@
 --  Điểm vào thư mục ngôn ngữ.
 --  Require các file con: lsp -> options -> autocmds -> keymaps
 -- =============================================
+require("langs.csharp.treesitter")
 require("langs.csharp.lsp")
 require("langs.csharp.options")
 require("langs.csharp.autocmds")
