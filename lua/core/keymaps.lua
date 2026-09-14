@@ -3,7 +3,7 @@ local telescope = require('telescope.builtin')
 
 vim.g.mapleader = " "
 
-local function lsp_jump_to_tab(method)
+local function lsp_jump(method, new_tab)
   local params = vim.lsp.util.make_position_params(0, "utf-16")
 
   vim.lsp.buf_request(0, "textDocument/" .. method, params, function(err, result)
@@ -14,8 +14,10 @@ local function lsp_jump_to_tab(method)
 
     local locations = vim.islist(result) and result or { result }
 
-    -- Tạo tab mới
-    vim.cmd("tab split")
+    -- Chỉ tạo tab mới khi được yêu cầu
+    if new_tab then
+      vim.cmd("tab split")
+    end
 
     -- Nhảy tới kết quả đầu tiên
     vim.lsp.util.jump_to_location(
@@ -27,12 +29,20 @@ local function lsp_jump_to_tab(method)
 end
 
 map("n", "gd", function()
-  lsp_jump_to_tab("definition")
-end, { desc = "LSP: Go to definition (tab)" })
+  lsp_jump("definition", false)
+end, { desc = "LSP: Go to definition" })
 
 map("n", "gi", function()
-  lsp_jump_to_tab("implementation")
-end, { desc = "LSP: Go to implementation (tab)" })
+  lsp_jump("implementation", false)
+end, { desc = "LSP: Go to implementation" })
+
+map("n", "gD", function()
+  lsp_jump("definition", true)
+end, { desc = "LSP: Go to definition (tab mới)" })
+
+map("n", "gI", function()
+  lsp_jump("implementation", true)
+end, { desc = "LSP: Go to implementation (tab mới)" })
 
 map("n", "gr", vim.lsp.buf.references, { desc = "LSP: References" })
 map("n", "K", function()
