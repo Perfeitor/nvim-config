@@ -18,7 +18,7 @@ Cấu hình Neovim được tổ chức theo **Git branches**: mỗi ngôn ngữ
 git clone https://github.com/Perfeitor/nvim-config.git ~/.config/nvim
 ```
 
-> Mặc định chỉ có `main` (cấu hình chung + Lua). Muốn thêm ngôn ngữ, xem phần **🌐 Tạo môi trường đa ngôn ngữ**.
+> Mặc định `main` đã có cấu hình chung + Lua + các file cấu hình universal (Markdown, JSON, YAML, TOML, Bash, Git). Muốn thêm ngôn ngữ lập trình, xem phần **🌐 Tạo môi trường đa ngôn ngữ**.
 
 ## 🧹 Xoá plugin không sử dụng
 
@@ -31,7 +31,8 @@ Chạy trong Neovim:
 ## 🌿 Mô hình nhánh
 
 ```text
-main             → ⚙️ Cài đặt chung + Lua
+main             → ⚙️ Cài đặt chung + file universal
+                   (Lua, Markdown, JSON, YAML, TOML, Bash, Git)
 lang/csharp      → 🟣 Toàn bộ phần C#
 lang/python      → 🐍 Toàn bộ phần Python
 lang/go          → 🐹 Toàn bộ phần Go
@@ -79,6 +80,12 @@ lang/go          → 🐹 Toàn bộ phần Go
     │
     ├── langs/                  ← 🌐 Cấu hình theo ngôn ngữ
     │   ├── lua/                → 🌙 Lua mặc định
+    │   ├── markdown/           → 📝 Markdown (marksman)
+    │   ├── json/               → 🧾 JSON/JSONC (jsonls)
+    │   ├── yaml/               → 📄 YAML (yamlls)
+    │   ├── toml/               → ⚙️ TOML (taplo)
+    │   ├── bash/               → 🐚 Shell (bashls)
+    │   ├── git/                → 🔀 Commit/diff/ignore (không LSP)
     │   └── csharp/             → 🟣 C#
     │       ├── init.lua        → điểm vào
     │       ├── lsp.lua         → 🧠 LSP
@@ -154,6 +161,7 @@ Vì các nhánh ngôn ngữ chỉ thêm file riêng, việc merge thay đổi ch
 
 - 📦 `pack/` và `nvim-pack-lock.json` nằm trong `.gitignore`: plugin được cài tự động theo branch hiện tại.
 - 🧠 LSP của từng ngôn ngữ được khai báo trong `lua/langs/<tên>/lsp.lua` qua `vim.lsp.enable()`.
+- 🌐 Nhóm **universal trên `main`** (Markdown, JSON, YAML, TOML, Bash, Git) luôn có sẵn sau khi clone, không cần merge nhánh `lang/*`.
 - 🛠️ Nếu server chưa được cài, chạy `:MasonInstall <tên-server>` một lần.
 - 🧩 Autocmd phụ thuộc plugin nên đặt trong config của chính plugin đó để tránh cảnh báo `same file required with different names` từ `lua-language-server`.
 - 🛠️ Được build dựa trên **Neovim v0.12.5**
