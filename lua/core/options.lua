@@ -25,9 +25,9 @@ vim.opt.autoread = true
 
 -- =============================================
 --  BẢNG INDENT DỰ PHÒNG
---  Fallback cho ngôn ngữ CHƯA có thư mục riêng trong lua/langs/.
---  Ngôn ngữ đã có thư mục riêng (lua, csharp) tự quản indent
---  trong lua/langs/<tên>/options.lua và nạp SAU nên thắng bảng này.
+--  Fallback cho ngôn ngữ CHƯA tự quản indent.
+--  Ngôn ngữ có lua/langs/<tên>/options.lua (vd: lua, csharp) tự quản
+--  và nạp SAU nên thắng bảng này.
 -- =============================================
 local indent = {
   -- 4 spaces
@@ -47,6 +47,10 @@ local indent = {
   json = 2,
   jsonc = 2,
   yaml = 2,
+  toml = 2,
+  sh = 2,
+  bash = 2,
+  zsh = 2,
   html = 2,
   css = 2,
   scss = 2,
