@@ -89,3 +89,4 @@ map("v", "<leader>fd", vim.lsp.buf.format)
 
 map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics" })
 map("n", "<C-w>T", "<cmd>tab split<CR>")
+
