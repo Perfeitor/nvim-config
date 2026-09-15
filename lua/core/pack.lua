@@ -37,5 +37,8 @@ vim.pack.add({
   "https://github.com/folke/tokyonight.nvim",
   "https://github.com/catppuccin/nvim",
   "https://github.com/nanozuki/tabby.nvim",
-  "https://github.com/rachartier/tiny-code-action.nvim"
+  "https://github.com/rachartier/tiny-code-action.nvim",
+
+  -- Debug Adapter Protocol
+  "https://github.com/mfussenegger/nvim-dap"
 })
