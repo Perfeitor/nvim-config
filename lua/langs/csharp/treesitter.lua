@@ -1,8 +1,8 @@
 -- =============================================
---  C#: Treesitter riêng
---  Parser c_sharp không có sẵn trong runtime nên
---  phải cài đặt rồi bật highlight + fold + indent
---  khi mở file .cs / .razor.
+--  C#: language-specific Treesitter
+--  The c_sharp parser is not bundled with the runtime, so
+--  install it then enable highlight + fold + indent
+--  when opening .cs / .razor files.
 -- =============================================
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "cs", "razor" },

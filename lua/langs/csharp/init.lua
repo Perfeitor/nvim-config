@@ -1,7 +1,7 @@
 -- =============================================
---  NGÔN NGỮ: C# (.NET)        (nhánh: lang/csharp)
---  Điểm vào thư mục ngôn ngữ.
---  Require các file con: lsp -> options -> autocmds -> keymaps
+--  LANGUAGE: C# (.NET)        (branch: lang/csharp)
+--  Language directory entry point.
+--  Requires child files: lsp -> options -> autocmds -> keymaps
 -- =============================================
 require("langs.csharp.treesitter")
 require("langs.csharp.lsp")

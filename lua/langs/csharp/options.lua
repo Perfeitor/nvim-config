@@ -1,10 +1,10 @@
 -- =============================================
---  C#: Option riêng theo ngôn ngữ
+--  C#: language-specific options
 -- =============================================
 
--- ---- Khối 1: Indent 4 space cho C# ----
--- Ghi đè bảng indent dự phòng trong core/options.lua
--- (nạp sau nên thắng).
+-- ---- Block 1: 4-space indent for C# ----
+-- Override the fallback indent table in core/options.lua
+-- (loads later, so it wins).
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "cs", "razor" },
   callback = function()
@@ -14,9 +14,9 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- ---- Khối 2: Highlight màu riêng cho C# ----
--- Điều chỉnh màu semantic token để phân biệt rõ
--- class / method / member thay vì màu mặc định.
+-- ---- Block 2: C#-specific highlight colors ----
+-- Tune semantic token colors to clearly distinguish
+-- class / method / member instead of the default colors.
 vim.api.nvim_set_hl(0, "@lsp.type.field.cs",          { fg = "#7AA89F" })
 vim.api.nvim_set_hl(0, "@csharp.variable",            { fg = "#C0A36E" })
 vim.api.nvim_set_hl(0, "@csharp.member",              { fg = "#c4c4c4" })

@@ -1,13 +1,13 @@
 -- =============================================
---  C#: Phím tắt riêng
---  Gắn buffer-local qua FileType autocmd nên chỉ
---  tồn tại khi mở file .cs.
---  Hiện chưa có phím tắt đặc thù; thêm theo mẫu dưới khi cần.
+--  C#: language-specific keymaps
+--  Attached buffer-locally via a FileType autocmd, so they only
+--  exist when a .cs file is open.
+--  No specific keymaps yet; add below following the template when needed.
 -- =============================================
 -- vim.api.nvim_create_autocmd("FileType", {
 --   pattern = { "cs" },
 --   callback = function()
 --     vim.keymap.set("n", "<leader>B", "<cmd>!dotnet build<cr>",
---       { buffer = true, desc = "C#: Build dự án" })
+--       { buffer = true, desc = "C#: Build project" })
 --   end,
 -- })
