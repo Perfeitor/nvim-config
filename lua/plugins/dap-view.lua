@@ -7,7 +7,7 @@
 require("dap-view").setup({
   auto_toggle = true,                       -- open on session start, close when done
   winbar = { controls = { enabled = true } },
-  virtual_text = { enabled = true, position = "inline" },
+  virtual_text = { enabled = true, position = "eol" },
 })
 
 local map = vim.keymap.set
