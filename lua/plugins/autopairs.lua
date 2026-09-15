@@ -1,5 +1,5 @@
 -- =============================================
 --  NVIM-AUTOPAIRS
---  Tự chèn cặp ký tự đóng ("" '' () {} [])
+--  Auto-insert closing pairs ("" '' () {} [])
 -- =============================================
 require("nvim-autopairs").setup()

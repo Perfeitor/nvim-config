@@ -1,7 +1,7 @@
 -- =============================================
---  TREESITTER DÙNG CHUNG
---  Chỉ lót đường cho treesitter. Không liệt kê parser
---  ở đây — mỗi ngôn ngữ tự quản parser riêng trong
---  lua/langs/<tên>/treesitter.lua.
+--  SHARED TREESITTER
+--  Only lays the groundwork for treesitter. Do not list parsers
+--  here — each language manages its own parsers in
+--  lua/langs/<name>/treesitter.lua.
 -- =============================================
 require("nvim-treesitter").setup({})

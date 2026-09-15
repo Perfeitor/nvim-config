@@ -1,5 +1,5 @@
 -- =============================================
---  OPTION DÙNG CHUNG (cho mọi ngôn ngữ)
+--  SHARED OPTIONS (for all languages)
 -- =============================================
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -24,10 +24,10 @@ vim.opt.title = true
 vim.opt.autoread = true
 
 -- =============================================
---  BẢNG INDENT DỰ PHÒNG
---  Fallback cho ngôn ngữ CHƯA tự quản indent.
---  Ngôn ngữ có lua/langs/<tên>/options.lua (vd: lua, csharp) tự quản
---  và nạp SAU nên thắng bảng này.
+--  FALLBACK INDENT TABLE
+--  Fallback for languages that do NOT manage indent themselves.
+--  Languages with lua/langs/<name>/options.lua (e.g. lua, csharp) manage
+--  their own and load AFTER, so they win over this table.
 -- =============================================
 local indent = {
   -- 4 spaces
@@ -55,7 +55,7 @@ local indent = {
   css = 2,
   scss = 2,
 
-  -- Go dùng Tab thật, đây chỉ là giá trị giả
+  -- Go uses real tabs; this is only a placeholder value
   go = 4,
 }
 
@@ -75,7 +75,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- =============================================
---  DIAGNOSTIC (bong bóng lỗi của LSP)
+--  DIAGNOSTIC (LSP error bubbles)
 -- =============================================
 vim.diagnostic.config({
   float = {
@@ -101,11 +101,11 @@ vim.diagnostic.config({
   virtual_text = true,
 })
 
--- Tắt codelens (nút "refactor/run" hiện ngay trên code)
+-- Disable codelens ("refactor/run" buttons shown above code)
 vim.lsp.codelens.enable(false)
 
 -- =============================================
---  FOLD BẰNG TREESITTER (gấp/xem cấu trúc code)
+--  TREESITTER FOLDING (fold/view code structure)
 -- =============================================
 vim.opt.foldenable = true
 vim.opt.foldlevel = 99
@@ -121,22 +121,22 @@ vim.opt.fillchars = {
 
 -- =============================================
 --  COLORSCHEME
---  (Highlight màu riêng của C# đã chuyển sang
+--  (C#-specific highlights have moved to
 --   lua/langs/csharp/options.lua)
 -- =============================================
 vim.cmd("colorscheme catppuccin-macchiato")
 
 -- =============================================
---  MÀU DIAGNOSTIC RÕ RÀNG (bảng màu One Dark, dịu mắt)
---  Áp dụng sau colorscheme để ghi đè theme.
---  Đồng bộ: icon (Sign), text gốc (VirtualText link theo),
---  bong bóng float, header float, màu undercurl.
+--  CLEAR DIAGNOSTIC COLORS (One Dark palette, easy on the eyes)
+--  Apply after the colorscheme to override the theme.
+--  Sync: icon (Sign), source text (VirtualText follows),
+--  float bubble, float header, undercurl color.
 -- =============================================
 local diag_colors = {
-  Error = "#E06C75", -- đỏ hồng nhẹ (dịu hơn #E82424)
-  Warn  = "#E5C07B", -- vàng hổ phách
-  Info  = "#61AFEF", -- xanh dương
-  Hint  = "#98C379", -- xanh lá
+  Error = "#E06C75", -- soft pink-red (softer than #E82424)
+  Warn  = "#E5C07B", -- amber yellow
+  Info  = "#61AFEF", -- blue
+  Hint  = "#98C379", -- green
 }
 for sev, fg in pairs(diag_colors) do
   vim.api.nvim_set_hl(0, "Diagnostic" .. sev, { fg = fg })

@@ -1,6 +1,6 @@
 -- =============================================
---  JSON (nằm trên main)
---  File cấu hình dùng chung: *.json, *.jsonc, lock file...
+--  JSON (lives on main)
+--  Shared config files: *.json, *.jsonc, lock files...
 -- =============================================
 require("langs.json.treesitter")
 require("langs.json.lsp")

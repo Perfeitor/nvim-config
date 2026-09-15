@@ -1,8 +1,8 @@
 -- =============================================
---  JSON: Treesitter riêng
---  Parser json không có sẵn trong runtime nên phải cài rồi bật
---  highlight + fold + indent khi mở file .json/.jsonc
---  (jsonc dùng chung parser json).
+--  JSON: language-specific Treesitter
+--  The json parser is not bundled with the runtime, so install it then
+--  enable highlight + fold + indent for .json/.jsonc files
+--  (jsonc shares the json parser).
 -- =============================================
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "json", "jsonc" },

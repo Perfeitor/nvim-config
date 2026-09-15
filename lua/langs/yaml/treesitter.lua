@@ -1,7 +1,7 @@
 -- =============================================
---  YAML: Treesitter riêng
---  Parser yaml không có sẵn trong runtime nên phải cài
---  rồi bật highlight + fold + indent khi mở file .yml/.yaml.
+--  YAML: language-specific Treesitter
+--  The yaml parser is not bundled with the runtime, so install it
+--  then enable highlight + fold + indent for .yml/.yaml files.
 -- =============================================
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "yaml" },

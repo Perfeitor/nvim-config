@@ -1,7 +1,7 @@
 -- =============================================
---  BASH: Treesitter riêng
---  Parser bash không có sẵn trong runtime nên phải cài
---  rồi bật highlight + fold + indent khi mở file shell.
+--  BASH: language-specific Treesitter
+--  The bash parser is not bundled with the runtime, so install it
+--  then enable highlight + fold + indent when opening shell files.
 -- =============================================
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "sh", "bash", "zsh" },

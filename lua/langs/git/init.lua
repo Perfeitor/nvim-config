@@ -1,5 +1,5 @@
 -- =============================================
---  GIT (nằm trên main)
---  Commit message, diff, gitignore... cần dù code ngôn ngữ nào.
+--  GIT (lives on main)
+--  Commit messages, diffs, gitignore... needed no matter the language.
 -- =============================================
 require("langs.git.treesitter")

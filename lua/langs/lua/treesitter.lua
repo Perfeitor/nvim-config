@@ -1,7 +1,7 @@
 -- =============================================
---  LUA: Treesitter riêng
---  Lua parser có sẵn trong runtime Neovim, file này
---  chỉ bật highlight + fold + indent khi mở file .lua.
+--  LUA: language-specific Treesitter
+--  The lua parser ships with the Neovim runtime; this file only
+--  enables highlight + fold + indent when opening .lua files.
 -- =============================================
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "lua" },

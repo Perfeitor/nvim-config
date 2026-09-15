@@ -1,6 +1,6 @@
 -- =============================================
---  MARKDOWN (nằm trên main)
---  File dùng chung: README, ghi chú... mở dù đang code ngôn ngữ nào.
+--  MARKDOWN (lives on main)
+--  Shared files: README, notes... opened no matter the language in use.
 -- =============================================
 require("langs.markdown.treesitter")
 require("langs.markdown.lsp")

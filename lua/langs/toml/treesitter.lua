@@ -1,7 +1,7 @@
 -- =============================================
---  TOML: Treesitter riêng
---  Parser toml không có sẵn trong runtime nên phải cài
---  rồi bật highlight + fold + indent khi mở file .toml.
+--  TOML: language-specific Treesitter
+--  The toml parser is not bundled with the runtime, so install it
+--  then enable highlight + fold + indent for .toml files.
 -- =============================================
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "toml" },

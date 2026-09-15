@@ -8,18 +8,18 @@ local function lsp_jump(method, new_tab)
 
   vim.lsp.buf_request(0, "textDocument/" .. method, params, function(err, result)
     if err or not result or vim.tbl_isempty(result) then
-      vim.notify("Không tìm thấy", vim.log.levels.INFO)
+      vim.notify("Not found", vim.log.levels.INFO)
       return
     end
 
     local locations = vim.islist(result) and result or { result }
 
-    -- Chỉ tạo tab mới khi được yêu cầu
+    -- Only open a new tab when requested
     if new_tab then
       vim.cmd("tab split")
     end
 
-    -- Nhảy tới kết quả đầu tiên
+    -- Jump to the first result
     vim.lsp.util.jump_to_location(
       locations[1],
       "utf-16",
@@ -38,11 +38,11 @@ end, { desc = "LSP: Go to implementation" })
 
 map("n", "gD", function()
   lsp_jump("definition", true)
-end, { desc = "LSP: Go to definition (tab mới)" })
+end, { desc = "LSP: Go to definition (new tab)" })
 
 map("n", "gI", function()
   lsp_jump("implementation", true)
-end, { desc = "LSP: Go to implementation (tab mới)" })
+end, { desc = "LSP: Go to implementation (new tab)" })
 
 map("n", "gr", vim.lsp.buf.references, { desc = "LSP: References" })
 map("n", "K", function()

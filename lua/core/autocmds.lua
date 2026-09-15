@@ -1,12 +1,12 @@
 -- =============================================
---  AUTOCMD DÙNG CHUNG
---  (Autocmd riêng của từng ngôn ngữ nằm trong
---   lua/langs/<tên>/autocmds.lua;
---   autocmd gắn với 1 plugin cụ thể nằm trong
+--  SHARED AUTOCMDS
+--  (Language-specific autocmds live in
+--   lua/langs/<name>/autocmds.lua;
+--   plugin-specific autocmds live in
 --   lua/plugins/<plugin>.lua)
 -- =============================================
 
--- Cập nhật tiêu đề cửa sổ theo tên thư mục gốc
+-- Update the window title with the root directory name
 vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
   callback = function()
     local root = vim.fn.getcwd()

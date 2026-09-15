@@ -1,9 +1,9 @@
-# Plugin được cài tự động theo branch -> không track
+# Plugins are auto-installed per branch -> not tracked
 pack/
 
-# Lock file tự sinh lại -> không track (tránh conflict JSON khi merge)
+# Lock file regenerates itself -> not tracked (avoids JSON conflicts on merge)
 nvim-pack-lock.json
 
-# File backup/tạm
+# Backup/temp files
 *.swp
 *.swo
