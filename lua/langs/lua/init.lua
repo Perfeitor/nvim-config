@@ -1,7 +1,7 @@
 -- =============================================
---  NGÔN NGỮ MẶC ĐỊNH: LUA   (nằm trên main)
---  Mỗi ngôn ngữ = 1 thư mục; init.lua chỉ require các file con
---  theo thứ tự: lsp -> options -> keymaps -> autocmds
+--  DEFAULT LANGUAGE: LUA   (lives on main)
+--  Each language = 1 directory; init.lua only requires child files
+--  in order: lsp -> options -> keymaps -> autocmds
 -- =============================================
 require("langs.lua.treesitter")
 require("langs.lua.lsp")

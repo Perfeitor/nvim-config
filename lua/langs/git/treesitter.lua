@@ -1,8 +1,8 @@
 -- =============================================
---  GIT: Treesitter riêng
---  Không cần LSP. Parser không có sẵn trong runtime nên phải cài
---  rồi bật highlight + fold khi mở commit message / diff / ignore.
---  Lưu ý: filetype và tên parser không luôn trùng nhau.
+--  GIT: language-specific Treesitter
+--  No LSP needed. Parsers are not bundled with the runtime, so install
+--  them then enable highlight + fold for commit messages / diffs / ignores.
+--  Note: filetype and parser names do not always match.
 -- =============================================
 local parsers = {
   gitcommit = "gitcommit",

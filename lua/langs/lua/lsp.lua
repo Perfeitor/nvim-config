@@ -1,22 +1,22 @@
 -- =============================================
 --  LUA: Language Server (lua_ls)
 -- =============================================
--- vim.lsp.config() khai báo cấu hình server (nvim 0.11+).
--- vim.lsp.enable() bật server; nếu chưa cài, mason-lspconfig tự tải về.
+-- vim.lsp.config() declares the server config (nvim 0.11+).
+-- vim.lsp.enable() enables the server; if missing, mason-lspconfig installs it.
 vim.lsp.config("lua_ls", {
-  cmd = { "lua-language-server" }, -- lệnh khởi chạy server
-  filetypes = { "lua" },           -- áp dụng cho file .lua
-  root_markers = {                 -- dấu hiệu nhận diện "gốc dự án"
+  cmd = { "lua-language-server" }, -- server launch command
+  filetypes = { "lua" },           -- applies to .lua files
+  root_markers = {                 -- project-root markers
     ".luarc.json",
     ".luarc.jsonc",
     ".git",
   },
-  single_file_support = true,      -- chạy được ngay cả với file đơn lẻ
+  single_file_support = true,      -- works even with single files
 
   settings = {
     Lua = {
       diagnostics = {
-        globals = { "vim" },       -- khai báo biến toàn cục "vim" để hết cảnh báo
+        globals = { "vim" },       -- declare global "vim" to silence warnings
       },
     },
   },

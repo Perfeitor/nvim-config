@@ -10,13 +10,13 @@ local theme = {
 require("tabby").setup({
   line = function(line)
     return {
-      -- Đầu thanh tab
+      -- Tab bar head
       {
-        { "  ", hl = theme.head },
-        line.sep("", theme.head, theme.fill),
+        { "  ", hl = theme.head },
+        line.sep("", theme.head, theme.fill),
       },
 
-      -- Chỉ hiện tabpage, không hiện window/buffer
+      -- Show only tabpages, no windows/buffers
       line.tabs().foreach(function(tab)
         local hl = tab.is_current()
             and theme.current_tab
@@ -43,10 +43,10 @@ require("tabby").setup({
         }
       end),
 
-      -- Đẩy phần còn lại sang phải
+      -- Push the rest to the right
       line.spacer(),
 
-      -- Phần cuối
+      -- Trailing section
       {
         { " + ", hl = theme.tab },
         hl = theme.fill,

@@ -1,17 +1,17 @@
 -- =============================================
---  LOADER NGÔN NGỮ
---  Quét MỌI thư mục con trong lua/langs/ và gọi require("langs.<tên>").
---  Mỗi thư mục = 1 ngôn ngữ, có init.lua làm điểm vào.
+--  LANGUAGE LOADER
+--  Scan EVERY subdirectory in lua/langs/ and call require("langs.<name>").
+--  Each directory = 1 language, with init.lua as the entry point.
 --
---  Vì sao thiết kế này không bao giờ conflict khi merge?
---  - Thêm ngôn ngữ mới = chỉ THÊM 1 thư mục, không sửa file dùng chung.
---  - Git merge chỉ xung đột khi 2 nhánh sửa cùng dòng cùng file.
---    Ở đây không nhánh nào sửa file này -> merge n nhánh luôn sạch.
+--  Why is this design merge-conflict-free?
+--  - Adding a language = ADDING 1 directory, never editing shared files.
+--  - Git merge only conflicts when 2 branches edit the same lines of a file.
+--    No branch edits this file -> merging n branches stays clean.
 -- =============================================
 local langs_dir = vim.fn.stdpath("config") .. "/lua/langs"
 
 for _, entry in ipairs(vim.fn.glob(langs_dir .. "/*", false, true)) do
-  if vim.fn.isdirectory(entry) == 1 then -- chỉ nhận thư mục
+  if vim.fn.isdirectory(entry) == 1 then -- directories only
     local name = vim.fn.fnamemodify(entry, ":t")
     require("langs." .. name)
   end

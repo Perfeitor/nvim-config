@@ -1,13 +1,13 @@
 -- =============================================
---  LOADER PLUGIN DÙNG CHUNG
---  Nạp các plugin dùng chung theo THỨ TỰ tường minh
---  (một số plugin phụ thuộc thứ tự, vd: mason phải setup
---   trước mason-lspconfig).
+--  SHARED PLUGIN LOADER
+--  Loads shared plugins in an EXPLICIT order
+--  (some plugins are order-dependent, e.g. mason must be set up
+--   before mason-lspconfig).
 --
---  Plugin riêng của từng ngôn ngữ KHÔNG nằm ở đây:
---  chúng sống trong lua/langs/<tên>/ và được nạp qua core/langs.
---  Vì vậy file này chỉ bị sửa trên main, không bao giờ bị các
---  nhánh ngôn ngữ đụng tới -> merge vẫn không conflict.
+--  Language-specific plugins do NOT live here:
+--  they live in lua/langs/<name>/ and are loaded via core/langs.
+--  So this file is only edited on main; language branches never
+--  touch it -> merges stay conflict-free.
 -- =============================================
 require("plugins.mason")
 require("plugins.telescope")

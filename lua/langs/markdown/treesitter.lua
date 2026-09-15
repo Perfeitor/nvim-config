@@ -1,7 +1,7 @@
 -- =============================================
---  MARKDOWN: Treesitter riêng
---  Parser markdown + markdown_inline có sẵn trong runtime Neovim
---  nên chỉ bật highlight + fold khi mở file markdown.
+--  MARKDOWN: language-specific Treesitter
+--  The markdown + markdown_inline parsers ship with the Neovim runtime,
+--  so only enable highlight + fold for markdown files.
 -- =============================================
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown" },

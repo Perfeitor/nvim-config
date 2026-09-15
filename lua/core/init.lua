@@ -1,8 +1,8 @@
--- Điểm khởi động config.
--- Thứ tự: các phần DÙNG CHUNG nạp trước, các NGÔN NGỮ nạp CUỐI CÙNG
--- để cấu hình ngôn ngữ ghi đè được mặc định chung.
-require("core.pack")          -- 1. Đăng ký plugin dùng chung
-require("core.keymaps")       -- 2. Phím tắt dùng chung
-require("core.options")       -- 3. Option dùng chung
-require("core.autocmds")      -- 4. Autocmd dùng chung
-require("core.langs")         -- 5. Nạp từng ngôn ngữ (quét lua/langs/*)
+-- Config entry point.
+-- Order: SHARED parts load first, LANGUAGES load LAST
+-- so language settings can override shared defaults.
+require("core.pack")          -- 1. Register shared plugins
+require("core.keymaps")       -- 2. Shared keymaps
+require("core.options")       -- 3. Shared options
+require("core.autocmds")      -- 4. Shared autocmds
+require("core.langs")         -- 5. Load each language (scan lua/langs/*)

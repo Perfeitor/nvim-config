@@ -1,5 +1,5 @@
 -- =============================================
---  MINI.STARTER (màn hình khởi động)
+--  MINI.STARTER (start screen)
 -- =============================================
 require("mini.starter").setup({
   items = {
@@ -13,7 +13,7 @@ require("mini.starter").setup({
   },
 })
 
--- Sau khi mở, tự nhảy xuống mục đầu tiên (quirk của mini.starter)
+-- After open, jump to the first item (mini.starter quirk)
 vim.api.nvim_create_autocmd("User", {
   pattern = "MiniStarterOpened",
   callback = function()

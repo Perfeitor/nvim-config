@@ -1,10 +1,10 @@
 -- =============================================
---  LUA: Autocmd riêng
---  Hiện chưa có; thêm theo mẫu khi cần.
+--  LUA: language-specific autocmds
+--  None yet; add following the commented template when needed.
 -- =============================================
 -- vim.api.nvim_create_autocmd("BufWritePost", {
 --   pattern = { "*.lua" },
 --   callback = function()
---     -- ví dụ: tự reload gì đó sau khi lưu
+--     -- e.g. auto-reload something after save
 --   end,
 -- })

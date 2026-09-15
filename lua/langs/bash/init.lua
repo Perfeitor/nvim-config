@@ -1,6 +1,6 @@
 -- =============================================
---  BASH (nằm trên main)
---  Script cài đặt, build, hook... dùng chung mọi ngôn ngữ.
+--  BASH (lives on main)
+--  Install/build scripts, hooks... shared by every language.
 -- =============================================
 require("langs.bash.treesitter")
 require("langs.bash.lsp")
