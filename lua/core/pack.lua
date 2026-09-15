@@ -40,5 +40,9 @@ vim.pack.add({
   "https://github.com/rachartier/tiny-code-action.nvim",
 
   -- Debug Adapter Protocol
-  "https://github.com/mfussenegger/nvim-dap"
+  "https://github.com/mfussenegger/nvim-dap",
+  {
+    src = "https://github.com/igorlfs/nvim-dap-view",
+    version = vim.version.range("1.*"),
+  }
 })
