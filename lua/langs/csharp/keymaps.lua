@@ -8,6 +8,6 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.keymap.set("n", "<leader>B", function()
       require("overseer").run_task({ name = "dotnet build" })
-    end, { buffer = true, desc = "C#: Build project (async)" })
+    end, { buffer = true, desc = "Build project (async)" })
   end,
 })

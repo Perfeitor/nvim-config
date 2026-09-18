@@ -142,7 +142,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set("n", "<leader>dP", function()
       force_pick = true
       require("dap").continue({ new = true })
-    end, { buffer = true, desc = "C#: Re-select profile/build" })
+    end, { buffer = true, desc = "Re-select profile/build" })
 
     vim.keymap.set("n", "<leader>dA", function()
       require("dap").run({
@@ -151,6 +151,6 @@ vim.api.nvim_create_autocmd("FileType", {
         name = "Attach (netcoredbg)",
         processId = require("dap.utils").pick_process,
       })
-    end, { buffer = true, desc = "C#: Attach process" })
+    end, { buffer = true, desc = "Attach process" })
   end,
 })
