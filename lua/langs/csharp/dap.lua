@@ -41,11 +41,24 @@ local function read_profiles(dir)
   return data.profiles
 end
 
--- Locate the assembly .dll for a given build configuration (Debug/Release).
-local function find_dll(dir, build_config)
+-- Resolve the built assembly .dll for a given build configuration (Debug/Release).
+-- The path is computed even before the build runs (using the .csproj
+-- TargetFramework), so `program` can be evaluated before `preLaunchTask`
+-- without aborting the session.
+local function dll_path(dir, build_config)
   local csproj = vim.fn.glob(dir .. "/*.csproj", false, true)[1]
   local name = csproj and vim.fn.fnamemodify(csproj, ":t:r") or vim.fn.fnamemodify(dir, ":t")
-  return vim.fn.glob(dir .. "/bin/" .. build_config .. "/net*/" .. name .. ".dll", false, true)[1]
+  local built = vim.fn.glob(dir .. "/bin/" .. build_config .. "/net*/" .. name .. ".dll", false, true)[1]
+  if built then return built end
+  if csproj then
+    local content = table.concat(vim.fn.readfile(csproj), "\n")
+    local tfm = content:match("<TargetFramework>%s*([^<%s]+)")
+      or content:match("<TargetFrameworks>%s*([^;<%s]+)")
+    if tfm then
+      return dir .. "/bin/" .. build_config .. "/" .. tfm .. "/" .. name .. ".dll"
+    end
+  end
+  return nil
 end
 
 -- Map a launch profile to netcoredbg env (applicationUrl -> ASPNETCORE_URLS).
@@ -67,14 +80,16 @@ local function build_config(dir, choice)
     cwd = (profile and profile.workingDirectory) or dir,
     env = profile and profile_env(profile) or {},
     args = (profile and profile.commandLineArgs) or {},
+
+    -- Overseer runs this asynchronously before the session starts (nvim-dap
+    -- `preLaunchTask` patch). The debugger only launches if it succeeds; on
+    -- failure overseer notifies the error and the session is aborted.
+    -- `_build` carries the dynamic choice to the `dotnet build` template.
+    preLaunchTask = "dotnet build",
+    _build = { dir = dir, config = choice.config },
+
     program = function()
-      vim.notify(("C#: building (%s)..."):format(choice.config), vim.log.levels.INFO)
-      vim.fn.system({ "dotnet", "build", "-c", choice.config, dir })
-      if vim.v.shell_error ~= 0 then
-        vim.notify("C#: build failed", vim.log.levels.ERROR)
-        return dap.ABORT
-      end
-      local dll = find_dll(dir, choice.config)
+      local dll = dll_path(dir, choice.config)
       if not dll then
         vim.notify(("C#: no .dll found in bin/%s/net*/"):format(choice.config), vim.log.levels.ERROR)
         return dap.ABORT
