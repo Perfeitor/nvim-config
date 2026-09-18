@@ -59,7 +59,7 @@ end, {
   desc = "Code Action",
 })
 
-map("i", "<C-Space>", "<C-X><C-O>", { desc = "Completion: omni" })
+-- i <C-Space> removed: shadowed by blink.cmp default preset (show/fallback)
 map("n", "<C-a>", "ggVG", { desc = "Select all" })
 map("n", "<leader>e", "<CMD>Neotree toggle reveal<CR>", { desc = "Toggle NeoTree" })
 map("i", "<C-S-v>", "<C-r>+", { desc = "Paste clipboard" })
@@ -84,9 +84,15 @@ map('n', '<leader>fr', telescope.resume, { desc = 'Telescope resume'})
 
 map("i", "<C-h>", vim.lsp.buf.signature_help, { desc = "Signature Help" })
 
-map("n", "<leader>fd", vim.lsp.buf.format, { desc = "LSP: Format" })
-map("v", "<leader>fd", vim.lsp.buf.format, { desc = "LSP: Format (range)" })
+map("n", "<leader>cf", vim.lsp.buf.format, { desc = "LSP: Format" })
+map("v", "<leader>cf", vim.lsp.buf.format, { desc = "LSP: Format (range)" })
 
 map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics" })
-map("n", "<C-w>T", "<cmd>tab split<CR>", { desc = "Window: Move to new tab" })
+map("n", "<C-w>T", "<cmd>tab split<CR>", { desc = "Window: Open copy in new tab" })
+
+-- Tabs (pairs with tabby.nvim tabline)
+map("n", "<leader><Tab><Left>", "<cmd>tabprevious<CR>", { desc = "Tab: Previous" })
+map("n", "<leader><Tab><Right>", "<cmd>tabnext<CR>", { desc = "Tab: Next" })
+map("n", "<leader><Tab><Up>", "<cmd>tabnew<CR>", { desc = "Tab: New" })
+map("n", "<leader><Tab><Down>", "<cmd>tabclose<CR>", { desc = "Tab: Close" })
 

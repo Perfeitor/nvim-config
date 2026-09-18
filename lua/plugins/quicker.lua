@@ -1,5 +1,3 @@
-require("quicker").setup()
-
 vim.keymap.set("n", "<leader>q", function()
   require("quicker").toggle()
 end, {

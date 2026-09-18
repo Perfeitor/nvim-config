@@ -4,7 +4,7 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = "a"
-vim.opt.showmode = true
+-- showmode is managed by lualine (plugins/lualine.lua sets false)
 vim.opt.clipboard = "unnamedplus"
 vim.opt.undofile = true
 vim.opt.ignorecase = true

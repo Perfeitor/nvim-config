@@ -14,7 +14,8 @@ require("treesitter-context").setup({
   multiline_threshold = 20,
   min_window_height = 0,
 })
-vim.keymap.set("n", "[c", function()
+-- NOTE: was "[c", changed to free the built-in diff-jump mapping ([c / ]c).
+vim.keymap.set("n", "<leader>cc", function()
   require("treesitter-context").go_to_context(vim.v.count1)
 end, { desc = "Context: jump to parent scope" })
 vim.keymap.set("n", "<leader>ct", function()
