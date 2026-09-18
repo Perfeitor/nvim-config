@@ -6,7 +6,8 @@
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "cs", "razor" },
   callback = function()
-    vim.keymap.set("n", "<leader>B", "<cmd>!dotnet build<cr>",
-      { buffer = true, desc = "C#: Build project" })
+    vim.keymap.set("n", "<leader>B", function()
+      require("overseer").run_task({ name = "dotnet build" })
+    end, { buffer = true, desc = "C#: Build project (async)" })
   end,
 })
