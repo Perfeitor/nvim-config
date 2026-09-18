@@ -38,9 +38,13 @@ local function project_dir()
   return csproj and vim.fn.fnamemodify(csproj, ":h") or vim.fn.getcwd()
 end
 
--- Short-lived tasks (build/test): surface compiler errors in the quickfix.
+-- Short-lived tasks (build/test): live toast while running (nvim-notify)
+-- + compiler errors in the quickfix. `on_output_notify` already notifies on
+-- completion, so `on_complete_notify` is intentionally not included to avoid
+-- duplicate notifications.
 local function short_lived()
   return {
+    { "on_output_notify", delay_ms = 500, max_lines = 2, output_on_complete = true },
     {
       "on_output_quickfix",
       open_on_exit = "failure",
@@ -48,7 +52,8 @@ local function short_lived()
       errorformat = "%f(%l\\,%c): %trror %m,%f(%l\\,%c): %twarning %m",
     },
     { "unique", soft = true },
-    "default",
+    "on_exit_set_status",
+    { "on_complete_dispose", require_view = { "SUCCESS", "FAILURE" } },
   }
 end
 
