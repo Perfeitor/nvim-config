@@ -68,8 +68,8 @@ require("which-key").add({
   { "<leader><Tab>", group = "Tabs" },
   { "<leader><Tab><Left>", icon = "󰜱" },  -- arrow-left-bold
   { "<leader><Tab><Right>", icon = "󰜴" }, -- arrow-right-bold
-  { "<leader><Tab><Up>", icon = "󰐊" },    -- play (new)
-  { "<leader><Tab><Down>", icon = "󰓛" },  -- stop (close)
+  { "<leader><Tab><Up>", icon = "󰐕" },    -- plus (new tab)
+  { "<leader><Tab><Down>", icon = "󰅖" },  -- close (close tab)
 
   -- Misc
   { "<leader>q", icon = "󰤀" },       -- playlist-edit
