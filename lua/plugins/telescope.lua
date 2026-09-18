@@ -14,3 +14,6 @@ require('telescope').setup({
   extensions = {
   }
 })
+
+-- fzf-native sorter (built by the PackChanged hook in core/pack.lua).
+pcall(require("telescope").load_extension, "fzf")
