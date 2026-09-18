@@ -44,5 +44,8 @@ vim.pack.add({
   {
     src = "https://github.com/igorlfs/nvim-dap-view",
     version = vim.version.range("1.*"),
-  }
+  },
+
+  -- Task runner (async build/test/run/watch + nvim-dap preLaunchTask)
+  "https://github.com/stevearc/overseer.nvim",
 })
