@@ -1,3 +1,14 @@
+-- Build native plugins after install/update (vim.pack has no `build` field).
+-- Must be registered BEFORE vim.pack.add() so it also runs on first install.
+vim.api.nvim_create_autocmd("PackChanged", {
+  callback = function(ev)
+    if ev.data.spec.name == "telescope-fzf-native.nvim"
+      and (ev.data.kind == "install" or ev.data.kind == "update") then
+      vim.system({ "make" }, { cwd = ev.data.path }):wait()
+    end
+  end,
+})
+
 vim.pack.add({
   "https://github.com/nvim-treesitter/nvim-treesitter.git",
   "https://github.com/nvim-treesitter/nvim-treesitter-context.git",
@@ -51,4 +62,12 @@ vim.pack.add({
 
   -- Notifications (floating toasts; backend for overseer live output)
   "https://github.com/rcarriga/nvim-notify",
+
+  -- Quality of life
+  "https://github.com/j-hui/fidget.nvim",                       -- LSP progress
+  "https://github.com/folke/which-key.nvim",                    -- keymap hints
+  "https://github.com/folke/lazydev.nvim",                      -- lua_ls for nvim config
+  "https://github.com/MagicDuck/grug-far.nvim",                 -- project search & replace
+  "https://github.com/Crysthamus/nvim-file-operations",         -- LSP file rename/create/delete
+  "https://github.com/nvim-telescope/telescope-fzf-native.nvim", -- faster telescope (built via PackChanged)
 })
