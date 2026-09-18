@@ -9,6 +9,7 @@
 --  So this file is only edited on main; language branches never
 --  touch it -> merges stay conflict-free.
 -- =============================================
+require("plugins.notify")
 require("plugins.mason")
 require("plugins.telescope")
 require("plugins.neotree")

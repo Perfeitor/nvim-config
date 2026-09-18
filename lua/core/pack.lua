@@ -48,4 +48,7 @@ vim.pack.add({
 
   -- Task runner (async build/test/run/watch + nvim-dap preLaunchTask)
   "https://github.com/stevearc/overseer.nvim",
+
+  -- Notifications (floating toasts; backend for overseer live output)
+  "https://github.com/rcarriga/nvim-notify",
 })
