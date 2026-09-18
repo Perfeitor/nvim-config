@@ -31,6 +31,6 @@ require("overseer").setup({
 local map = vim.keymap.set
 
 map("n", "<leader>ot", "<CMD>OverseerToggle<CR>", { desc = "Overseer: Toggle task list" })
-map("n", "<leader>oo", "<CMD>OverseerOpen<CR>", { desc = "Overseer: Open task list" })
+-- <leader>oo removed: Toggle already covers Open
 map("n", "<leader>or", "<CMD>OverseerRun<CR>", { desc = "Overseer: Run task" })
 map("n", "<leader>oa", "<CMD>OverseerTaskAction<CR>", { desc = "Overseer: Task action" })

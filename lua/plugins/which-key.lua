@@ -43,11 +43,10 @@ require("which-key").add({
   { "K", icon = "󰋽" },               -- information-outline
   { "<leader>rn", icon = "󰑕" },      -- rename-box
   { "<leader>ca", icon = "󰌵" },      -- lightbulb
-  { "<leader>fd", icon = "󰉢" },      -- format-align-left
+  { "<leader>cf", icon = "󰉢" },      -- format-align-left
 
   -- Debug
   { "<F5>", icon = "󰐊" },            -- play
-  { "<leader>dc", icon = "󰐊" },
   { "<F10>", icon = "󰆷" },           -- debug-step-over
   { "<F11>", icon = "󰆹" },           -- debug-step-into
   { "<F12>", icon = "󰆸" },           -- debug-step-out
@@ -62,19 +61,28 @@ require("which-key").add({
 
   -- Overseer
   { "<leader>ot", icon = "󰝖" },      -- format-list-checks
-  { "<leader>oo", icon = "󰏌" },      -- open-in-new
   { "<leader>or", icon = "󰐊" },      -- play
   { "<leader>oa", icon = "󰇘" },      -- dots-horizontal
+
+  -- Tabs
+  { "<leader><Tab>", group = "Tabs" },
+  { "<leader><Tab><Left>", icon = "󰜱" },  -- arrow-left-bold
+  { "<leader><Tab><Right>", icon = "󰜴" }, -- arrow-right-bold
+  { "<leader><Tab><Up>", icon = "󰐊" },    -- play (new)
+  { "<leader><Tab><Down>", icon = "󰓛" },  -- stop (close)
 
   -- Misc
   { "<leader>q", icon = "󰤀" },       -- playlist-edit
   { "<leader>l", icon = "󰉹" },       -- format-list-bulleted
-  { "[c", icon = "󰁝" },              -- arrow-up
+  { "<leader>cc", icon = "󰁝" },      -- arrow-up
   { "<leader>ct", icon = "󰛼" },      -- page-layout-header
   { "<C-s>", icon = "󰆓" },           -- content-save
   { "<C-a>", icon = "󰒆" },           -- select-all
-  { "<C-Space>", mode = "i", icon = "󰁨" }, -- auto-fix
   { "<leader>e", icon = "󰉋" },       -- folder
   { "<leader>sr", icon = "󰛔" },      -- find-replace
   { "<leader>sw", icon = "󰛔" },
+  -- C# (buffer-local, defined on lang/csharp)
+  { "<leader>B", icon = "󰝖" },       -- format-list-checks (build)
+  { "<leader>dP", icon = "󰑙" },      -- replay (re-select profile/build)
+  { "<leader>dA", icon = "󰌹" },      -- link-variant (attach)
 })

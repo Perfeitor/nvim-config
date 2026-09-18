@@ -27,7 +27,7 @@ map("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP: Toggle breakpoint" 
 map("n", "<leader>dB", function()
   dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
 end, { desc = "DAP: Conditional breakpoint" })
-map("n", "<leader>dc", dap.continue,    { desc = "DAP: Continue" })
+-- <leader>dc removed: duplicate of <F5> (dap.continue)
 map("n", "<leader>dt", dap.terminate,   { desc = "DAP: Terminate" })
 map("n", "<leader>dr", dap.repl.toggle, { desc = "DAP: REPL" })
 map("n", "<leader>dl", dap.run_last,    { desc = "DAP: Run last" })
