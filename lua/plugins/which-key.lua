@@ -16,4 +16,8 @@ require("which-key").add({
   { "<leader>o", group = "Overseer" },
   { "<leader>s", group = "Search/Replace" },
   { "<leader>x", group = "Diagnostics" },
+  { "<leader>r", group = "Rename" },
+  { "<leader>c", group = "Code" },
+  { "g", group = "Goto" },
+  { "[", group = "Prev" },
 })

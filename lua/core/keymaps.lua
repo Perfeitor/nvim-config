@@ -59,7 +59,7 @@ end, {
   desc = "Code Action",
 })
 
-map("i", "<C-Space>", "<C-X><C-O>")
+map("i", "<C-Space>", "<C-X><C-O>", { desc = "Completion: omni" })
 map("n", "<C-a>", "ggVG", { desc = "Select all" })
 map("n", "<leader>e", "<CMD>Neotree toggle reveal<CR>", { desc = "Toggle NeoTree" })
 map("i", "<C-S-v>", "<C-r>+", { desc = "Paste clipboard" })
@@ -84,9 +84,9 @@ map('n', '<leader>fr', telescope.resume, { desc = 'Telescope resume'})
 
 map("i", "<C-h>", vim.lsp.buf.signature_help, { desc = "Signature Help" })
 
-map("n", "<leader>fd", vim.lsp.buf.format)
-map("v", "<leader>fd", vim.lsp.buf.format)
+map("n", "<leader>fd", vim.lsp.buf.format, { desc = "LSP: Format" })
+map("v", "<leader>fd", vim.lsp.buf.format, { desc = "LSP: Format (range)" })
 
 map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics" })
-map("n", "<C-w>T", "<cmd>tab split<CR>")
+map("n", "<C-w>T", "<cmd>tab split<CR>", { desc = "Window: Move to new tab" })
 
