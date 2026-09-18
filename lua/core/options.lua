@@ -143,8 +143,14 @@ for sev, fg in pairs(diag_colors) do
   vim.api.nvim_set_hl(0, "DiagnosticSign" .. sev, { fg = fg, bg = "none" })
   vim.api.nvim_set_hl(0, "DiagnosticFloating" .. sev, { fg = fg })
   vim.api.nvim_set_hl(0, "DiagnosticFloatingHeader" .. sev, { fg = fg })
-  local u = vim.api.nvim_get_hl(0, { name = "DiagnosticUnderline" .. sev, link = false })
-  u.sp = fg
-  vim.api.nvim_set_hl(0, "DiagnosticUnderline" .. sev, u)
+  local cur = vim.api.nvim_get_hl(0, { name = "DiagnosticUnderline" .. sev, link = false })
+  vim.api.nvim_set_hl(0, "DiagnosticUnderline" .. sev, {
+    sp = fg,
+    underline = cur.underline,
+    undercurl = cur.undercurl or (not cur.underline and not cur.underdotted and not cur.underdashed and not cur.underdouble) or nil,
+    underdotted = cur.underdotted,
+    underdashed = cur.underdashed,
+    underdouble = cur.underdouble,
+  })
 end
 
