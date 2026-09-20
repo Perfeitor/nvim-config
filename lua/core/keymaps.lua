@@ -20,10 +20,10 @@ local function lsp_jump(method, new_tab)
     end
 
     -- Jump to the first result
-    vim.lsp.util.jump_to_location(
+    vim.lsp.util.show_document(
       locations[1],
       "utf-16",
-      true
+      { focus = true }
     )
   end)
 end
@@ -54,7 +54,7 @@ map("n", "K", function()
 end, { desc = "LSP: Hover" })
 map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP: Rename" })
 map({ "n", "x" }, "<leader>ca", function()
-  require("tiny-code-action").code_action()
+  require("tiny-code-action").code_action({})
 end, {
   desc = "Code Action",
 })
