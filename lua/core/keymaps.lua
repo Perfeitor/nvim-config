@@ -65,9 +65,18 @@ map("n", "<leader>e", "<CMD>Neotree toggle reveal<CR>", { desc = "Toggle NeoTree
 map("i", "<C-S-v>", "<C-r>+", { desc = "Paste clipboard" })
 map("n", "<C-S-v>", '"+p', { desc = "Paste clipboard" })
 map({ "n", "i" }, "<C-s>", function()
+  local ok, cmp = pcall(require, "blink.cmp")
+  local had_completion = ok and cmp.is_visible()
+
   vim.cmd("stopinsert")
+  if ok then cmp.cancel() end
   vim.cmd("write")
+  vim.schedule(function()
+    if ok then cmp.hide() end
+  end)
+
   vim.defer_fn(function()
+    if had_completion then return end
     vim.diagnostic.open_float(nil, {
       focus = false,
       scope = "line",
