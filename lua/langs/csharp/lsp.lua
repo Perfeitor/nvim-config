@@ -5,14 +5,15 @@ vim.lsp.config("roslyn_ls", {
   cmd = {
     "roslyn-language-server",
     "--stdio",
-    "--autoLoadProjects",
+    "--autoLoadProjects", "10",                            -- cap auto-loaded projects
+    "--sourceGeneratorExecutionPreference", "Balanced",    -- generators run on save/build only
   },
   -- Env applies only to the child Roslyn process (not the parent nvim).
   -- DOTNET_gcServer=0: Workstation GC, uses less RAM than default Server GC.
-  -- DOTNET_GCHeapHardLimit: hex, 100000000 = 4GB (GC heap + bookkeeping).
+  -- DOTNET_GCHeapHardLimit: hex, 200000000 = 8GB (GC heap + bookkeeping).
   cmd_env = {
     DOTNET_gcServer = "0",
-    DOTNET_GCHeapHardLimit = "100000000",
+    DOTNET_GCHeapHardLimit = "200000000",
   },
   filetypes = { "cs", "razor" }, -- applies to .cs and .razor
   root_markers = {               -- .NET project roots
