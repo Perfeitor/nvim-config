@@ -4,8 +4,60 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = "a"
--- showmode is managed by lualine (plugins/lualine.lua sets false)
 vim.opt.clipboard = "unnamedplus"
+-- =============================================
+--  CLIPBOARD (WSL only)
+--  Other OSes use Neovim defaults (macOS pbcopy, Windows native, xclip/wl-copy).
+--
+--  Do NOT use clip.exe here: it decodes stdin with the Windows OEM codepage
+--  (437), corrupting UTF-8 ("Tìm" -> "T├¼m").
+--
+--  Order: 1) win32yank.exe if installed (fast), otherwise
+--         2) PowerShell with forced UTF-8 (built into Windows, zero install).
+--  See README "Clipboard trên WSL" for the optional win32yank install.
+-- =============================================
+if vim.fn.has('wsl') == 1 then
+	local function ps(script)
+		return { 'powershell.exe', '-NoProfile', '-NoLogo', '-Command', script }
+	end
+
+	-- Read stdin as UTF-8, then Set-Clipboard (replaces the broken clip.exe).
+	local copy_ps = ps(
+		'Set-Clipboard -Value ([System.IO.StreamReader]::new([Console]::OpenStandardInput(), [System.Text.Encoding]::UTF8).ReadToEnd())'
+	)
+	-- Write UTF-8 to stdout, strip CR to avoid ^M when pasting into Neovim.
+	local paste_ps = ps(
+		'[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; [Console]::Out.Write((Get-Clipboard -Raw).Replace([string][char]13, ""))'
+	)
+
+	if vim.fn.executable('win32yank.exe') == 1 then
+		vim.g.clipboard = {
+			name = 'win32yank-wsl',
+			copy = {
+				['+'] = { 'win32yank.exe', '-i', '--crlf' },
+				['*'] = { 'win32yank.exe', '-i', '--crlf' },
+			},
+			paste = {
+				['+'] = { 'win32yank.exe', '-o', '--lf' },
+				['*'] = { 'win32yank.exe', '-o', '--lf' },
+			},
+			cache_enabled = 0,
+		}
+	else
+		vim.g.clipboard = {
+			name = 'WSL-PowerShell-UTF8',
+			copy = {
+				['+'] = copy_ps,
+				['*'] = copy_ps,
+			},
+			paste = {
+				['+'] = paste_ps,
+				['*'] = paste_ps,
+			},
+			cache_enabled = 0,
+		}
+	end
+end
 vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true

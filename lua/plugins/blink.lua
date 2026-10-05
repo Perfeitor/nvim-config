@@ -1,8 +1,19 @@
 local cmp = require('blink.cmp')
 
-cmp.build():pwait()
+-- blink.cmp's fuzzy matcher is written in Rust and compiled with cargo.
+-- Build only when cargo exists, otherwise fall back to the pure-Lua matcher
+-- so machines without Rust never show a build error.
+local has_cargo = vim.fn.executable('cargo') == 1
+if has_cargo then
+    cmp.build():pwait()
+end
 
 cmp.setup({
+    -- Rust matcher when built, pure-Lua fallback otherwise.
+    fuzzy = {
+        implementation = has_cargo and 'prefer_rust' or 'lua',
+    },
+
     keymap = {
         preset = "default",
         ["<Tab>"] = { "select_next", "fallback" },
