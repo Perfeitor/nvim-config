@@ -5,6 +5,8 @@ Cấu hình Neovim được tổ chức theo **Git branches**: mỗi ngôn ngữ
 ## 📚 Mục lục
 
 - [Cài đặt](#-cài-nhanh)
+- [Clipboard trên WSL (tuỳ chọn)](#-clipboard-trên-wsl-tuỳ-chọn)
+- [Rust/cargo cho gợi ý code (blink.cmp)](#-rustcargo-cho-gợi-ý-code-blinkcmp)
 - [Mô hình nhánh](#-mô-hình-nhánh)
 - [Cấu trúc thư mục](#-cấu-trúc-thư-mục)
 - [Tạo môi trường đa ngôn ngữ](#-tạo-môi-trường-đa-ngôn-ngữ)
@@ -19,6 +21,50 @@ git clone https://github.com/Perfeitor/nvim-config.git ~/.config/nvim
 ```
 
 > Mặc định `main` đã có cấu hình chung + Lua + các file cấu hình universal (Markdown, JSON, YAML, TOML, Bash, Git). Muốn thêm ngôn ngữ lập trình, xem phần **🌐 Tạo môi trường đa ngôn ngữ**.
+
+## 📋 Clipboard trên WSL (tuỳ chọn)
+
+Trên WSL, `clip.exe` đọc dữ liệu theo **codepage OEM** của Windows (mặc định `437`), nên copy chữ có dấu bị hỏng: `Tìm` → `T├¼m`. Vì vậy config **không dùng** `clip.exe`, mà tự chọn theo thứ tự (xem `lua/core/options.lua`):
+
+1. **`win32yank.exe`** — nếu có trong `$PATH` thì dùng: nhanh, xử lý UTF-8 chuẩn. **Tuỳ chọn.**
+2. **PowerShell ép UTF-8** — dùng khi chưa cài `win32yank`: có sẵn trên mọi Windows, **không cần cài gì**.
+
+> **Không cài gì cả vẫn chạy đúng và không báo lỗi.** Chỉ cài `win32yank` nếu muốn nhanh hơn (PowerShell khởi động hơi chậm mỗi lần copy/paste).
+
+**`win32yank` là gì:** một binary nhỏ giúp WSL ghi/đọc clipboard Windows ở dạng UTF-8 đúng, thay cho `clip.exe`.
+
+Cài bản dựng sẵn (khuyên dùng):
+
+```bash
+curl -sLo /tmp/win32yank.zip \
+  https://github.com/equalsraf/win32yank/releases/download/v0.1.1/win32yank-x64.zip
+unzip -o /tmp/win32yank.zip -d /tmp/win32yank
+sudo install -m755 /tmp/win32yank/win32yank.exe /usr/local/bin/win32yank.exe
+
+win32yank.exe --help   # kiểm tra
+```
+
+Mở lại Neovim là config tự nhận (`vim.fn.executable('win32yank.exe')`), không cần sửa gì.
+
+## 🦀 Rust/cargo cho gợi ý code (blink.cmp)
+
+Plugin gợi ý code **blink.cmp** dùng bộ lọc fuzzy viết bằng **Rust**, được biên dịch bằng `cargo` khi khởi động Neovim (xem `lua/plugins/blink.lua`). Máy chưa có Rust thì bước build sẽ báo lỗi/nhắc nhở.
+
+Cài Rust (chọn 1):
+
+```bash
+# Fedora
+sudo dnf install cargo rust
+# hoặc rustup (khuyên dùng)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# macOS: brew install rust    |    Windows: https://rustup.rs
+```
+
+Mở lại Neovim, blink.cmp tự build bộ lọc Rust.
+
+**Nếu KHÔNG cài Rust:** không cần làm gì. Config đã tự kiểm tra `cargo`:
+- Có `cargo` → build và dùng bộ lọc Rust.
+- Không có → bỏ qua build, dùng bộ lọc thuần Lua, **không báo lỗi** (chỉ chậm hơn một chút khi gợi ý).
 
 ## 🧹 Xoá plugin không sử dụng
 
