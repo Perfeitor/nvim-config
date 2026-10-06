@@ -44,13 +44,13 @@ sudo install -m755 /tmp/win32yank/win32yank.exe /usr/local/bin/win32yank.exe
 win32yank.exe --help   # kiểm tra
 ```
 
-Mở lại Neovim là config tự nhận (`vim.fn.executable('win32yank.exe')`), không cần sửa gì.
+Mở lại Neovim, Neovim sẽ sử dụng **win32yank** đã cài.
 
 ## 🦀 Rust/cargo cho gợi ý code (blink.cmp)
 
 Plugin gợi ý code **blink.cmp** dùng bộ lọc fuzzy viết bằng **Rust**, được biên dịch bằng `cargo` khi khởi động Neovim (xem `lua/plugins/blink.lua`). Máy chưa có Rust thì bước build sẽ báo lỗi/nhắc nhở.
 
-Cài Rust (chọn 1):
+Cài Rust:
 
 ```bash
 # Fedora
