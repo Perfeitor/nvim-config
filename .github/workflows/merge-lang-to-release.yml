@@ -1,0 +1,54 @@
+name: Merge language branches to release/nix
+
+on:
+  push:
+    branches:
+      - 'lang/*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        env:
+          GIT_SIGNING_KEY: ${{ secrets.GIT_SIGNING_KEY }}
+          GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
+          GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
+        run: |
+          printf '%s\n' "$GIT_SIGNING_KEY" > "$RUNNER_TEMP/signing_key"
+          chmod 600 "$RUNNER_TEMP/signing_key"
+
+          git config user.name "$GIT_USER_NAME"
+          git config user.email "$GIT_USER_EMAIL"
+          git config gpg.format ssh
+          git config user.signingkey "$RUNNER_TEMP/signing_key"
+
+      - name: Merge language branches to release/nix
+        run: |
+          git fetch origin
+
+          git checkout release/nix
+
+          for branch in $(git branch -r --format='%(refname:short)' | grep '^origin/lang/'); do
+            branch=${branch#origin/}
+
+            echo "Merging $branch -> release/nix"
+            if git merge "origin/$branch" --no-edit --no-ff -S; then
+              echo "✓ $branch merged"
+            else
+              echo "✗ Conflict in $branch"
+              git merge --abort || true
+            fi
+          done
+
+          git push origin release/nix
