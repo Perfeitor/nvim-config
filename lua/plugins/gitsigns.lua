@@ -20,6 +20,11 @@ require('gitsigns').setup {
   numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
   linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
   word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
+  diff_opts = {
+    -- Ignore trailing whitespace (incl. CR of CRLF) so a line-ending
+    -- mismatch does not mark the whole file as changed.
+    ignore_whitespace_change_at_eol = true,
+  },
   watch_gitdir = {
     follow_files = true
   },
