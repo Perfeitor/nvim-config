@@ -50,3 +50,29 @@ jobs:
               git merge --abort || true
             fi
           done
+
+      - name: Merge language branches to release branches
+        run: |
+          git fetch origin
+
+          for release in $(git branch -r --format='%(refname:short)' | grep '^origin/release/'); do
+            release=${release#origin/}
+            name=${release#release/}
+            branch="lang/$name"
+
+            if ! git rev-parse --verify --quiet "origin/$branch"; then
+              echo "No $branch for $release, skipping"
+              continue
+            fi
+
+            echo "Merging $branch -> $release"
+            git checkout "$release"
+
+            if git merge "origin/$branch" --no-edit --no-ff -S; then
+              echo "✓ $branch merged into $release"
+              git push origin "$release"
+            else
+              echo "✗ Conflict in $release"
+              git merge --abort || true
+            fi
+          done
